@@ -1,0 +1,344 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>The Open Med Tech Lab</title>
+    <!-- Load Tailwind CSS -->
+    <script src="https://cdn.tailwindcss.com"></script>
+    <style>
+        /* Custom styles for better aesthetics */
+        :root {
+            --primary-color: #1e40af; /* Tailwind blue-700 */
+        }
+        body {
+            font-family: 'Inter', sans-serif;
+            background-color: #f8fafc; /* Tailwind slate-50 */
+        }
+        .tab-button.active {
+            background-color: var(--primary-color);
+            color: white;
+            box-shadow: 0 4px 6px -1px rgba(0, 0, 0, 0.1), 0 2px 4px -2px rgba(0, 0, 0, 0.1);
+        }
+        /* Style for active tab in mobile view */
+        .mobile-nav-item.active {
+            border-left: 4px solid #f97316; /* Tailwind orange-500 */
+            background-color: #f1f5f9; /* Tailwind slate-100 */
+            color: #f97316;
+            font-weight: 600;
+        }
+    </style>
+</head>
+<body class="min-h-screen flex flex-col">
+
+    <!-- Header and Navigation -->
+    <header class="bg-white shadow-md sticky top-0 z-10">
+        <div class="container mx-auto px-4 py-4 flex justify-between items-center">
+            <h1 class="text-3xl font-extrabold text-gray-800">
+                <span class="text-blue-700">Open Med</span> Tech
+            </h1>
+
+            <!-- Desktop Navigation -->
+            <nav id="desktop-nav" class="hidden md:flex space-x-2 lg:space-x-4">
+                <button id="tab-home-btn" data-tab="home" class="tab-button active px-4 py-2 rounded-lg text-sm font-medium text-gray-700 transition duration-150 hover:bg-blue-100 hover:text-blue-700">Home</button>
+                <button id="tab-research-btn" data-tab="research" class="tab-button px-4 py-2 rounded-lg text-sm font-medium text-gray-700 transition duration-150 hover:bg-blue-100 hover:text-blue-700">Research</button>
+                <button id="tab-people-btn" data-tab="people" class="tab-button px-4 py-2 rounded-lg text-sm font-medium text-gray-700 transition duration-150 hover:bg-blue-100 hover:text-blue-700">People</button>
+                <button id="tab-publications-btn" data-tab="publications" class="tab-button px-4 py-2 rounded-lg text-sm font-medium text-gray-700 transition duration-150 hover:bg-blue-100 hover:text-blue-700">Publications</button>
+                <button id="tab-contact-btn" data-tab="contact" class="tab-button px-4 py-2 rounded-lg text-sm font-medium text-gray-700 transition duration-150 hover:bg-blue-100 hover:text-blue-700">Contact</button>
+            </nav>
+
+            <!-- Mobile Menu Button -->
+            <button id="mobile-menu-btn" class="md:hidden p-2 rounded-md text-gray-700 hover:bg-gray-100 transition duration-150">
+                <!-- Hamburger Icon (Menu) -->
+                <svg id="menu-icon-open" class="w-6 h-6" fill="none" stroke="currentColor" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M4 6h16M4 12h16M4 18h16"></path></svg>
+                <!-- Close Icon (X) -->
+                <svg id="menu-icon-close" class="w-6 h-6 hidden" fill="none" stroke="currentColor" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M6 18L18 6M6 6l12 12"></path></svg>
+            </button>
+        </div>
+
+        <!-- Mobile Menu Dropdown -->
+        <nav id="mobile-nav-menu" class="md:hidden hidden bg-white border-t border-gray-200 shadow-lg">
+            <button data-tab="home" class="mobile-nav-item active w-full text-left px-4 py-3 text-gray-700 hover:bg-gray-100 transition duration-150 text-sm">Home</button>
+            <button data-tab="research" class="mobile-nav-item w-full text-left px-4 py-3 text-gray-700 hover:bg-gray-100 transition duration-150 text-sm">Research</button>
+            <button data-tab="people" class="mobile-nav-item w-full text-left px-4 py-3 text-gray-700 hover:bg-gray-100 transition duration-150 text-sm">People</button>
+            <button data-tab="publications" class="mobile-nav-item w-full text-left px-4 py-3 text-gray-700 hover:bg-gray-100 transition duration-150 text-sm">Publications</button>
+            <button data-tab="contact" class="mobile-nav-item w-full text-left px-4 py-3 text-gray-700 hover:bg-gray-100 transition duration-150 text-sm">Contact</button>
+        </nav>
+    </header>
+
+    <!-- Main Content Area -->
+    <main class="container mx-auto px-4 py-8 flex-grow">
+        <div id="content-container">
+
+            <!-- HOME Tab Content (Updated with Open Med Tech Content) -->
+            <section id="tab-home" class="tab-content">
+                <div class="bg-white p-6 md:p-10 rounded-xl shadow-lg mb-8">
+                    <h2 class="text-4xl font-bold text-gray-900 mb-4 border-b pb-2 border-blue-100">Open Med Tech</h2>
+                    <p class="text-lg text-gray-700 mb-6">
+                        The **Open Med Tech Lab** website template is an easy-to-use, flexible foundation for research labs. Spend less time worrying about managing a website and citations, and more time running your lab and focusing on your work.
+                    </p>
+
+                    <div class="flex flex-col sm:flex-row space-y-4 sm:space-y-0 sm:space-x-4">
+                        <!-- Docs Button -->
+                        <a href="https://greene-lab.gitbook.io/lab-website-template-docs" target="_blank" class="w-full sm:w-auto text-center bg-blue-700 text-white font-semibold py-3 px-6 rounded-lg hover:bg-blue-800 transition duration-200 shadow-md">
+                            Documentation
+                        </a>
+                        <!-- GitHub Button -->
+                        <a href="https://github.com/greenelab/lab-website-template" target="_blank" class="w-full sm:w-auto text-center bg-gray-800 text-white font-semibold py-3 px-6 rounded-lg hover:bg-gray-900 transition duration-200 shadow-md">
+                            On GitHub
+                        </a>
+                    </div>
+                </div>
+
+                <!-- Highlights Section -->
+                <div class="p-6 md:p-10">
+                    <h2 class="text-3xl font-bold text-gray-900 mb-8 border-b pb-2 border-gray-200">Highlights</h2>
+
+                    <div class="space-y-12">
+                        <!-- Feature 1: Our Research -->
+                        <div class="flex flex-col lg:flex-row items-center bg-white p-6 rounded-xl shadow-lg hover:shadow-xl transition duration-300">
+                            <img src="https://placehold.co/300x200/1e40af/ffffff?text=RESEARCH+IMAGE" alt="Research Placeholder" class="w-full lg:w-1/3 h-auto rounded-lg object-cover mb-4 lg:mb-0 lg:mr-6">
+                            <div class="lg:w-2/3">
+                                <h3 class="text-2xl font-bold text-gray-800 mb-2">Our Research</h3>
+                                <p class="text-gray-600 mb-4">
+                                    Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua.
+                                </p>
+                                <button data-tab="publications" class="tab-link text-blue-700 font-semibold hover:text-blue-900 transition duration-150" onclick="showTab('publications')">
+                                    See our publications &rarr;
+                                </button>
+                            </div>
+                        </div>
+
+                        <!-- Feature 2: Our Projects (Flipped layout) -->
+                        <div class="flex flex-col lg:flex-row-reverse items-center bg-white p-6 rounded-xl shadow-lg hover:shadow-xl transition duration-300">
+                            <img src="https://placehold.co/300x200/1e40af/ffffff?text=PROJECTS+IMAGE" alt="Projects Placeholder" class="w-full lg:w-1/3 h-auto rounded-lg object-cover mb-4 lg:mb-0 lg:ml-6">
+                            <div class="lg:w-2/3">
+                                <h3 class="text-2xl font-bold text-gray-800 mb-2">Our Projects</h3>
+                                <p class="text-gray-600 mb-4">
+                                    Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua.
+                                </p>
+                                <button data-tab="research" class="tab-link text-blue-700 font-semibold hover:text-blue-900 transition duration-150" onclick="showTab('research')">
+                                    Browse our projects &rarr;
+                                </button>
+                            </div>
+                        </div>
+
+                        <!-- Feature 3: Our Team -->
+                        <div class="flex flex-col lg:flex-row items-center bg-white p-6 rounded-xl shadow-lg hover:shadow-xl transition duration-300">
+                            <img src="https://placehold.co/300x200/1e40af/ffffff?text=TEAM+IMAGE" alt="Team Placeholder" class="w-full lg:w-1/3 h-auto rounded-lg object-cover mb-4 lg:mb-0 lg:mr-6">
+                            <div class="lg:w-2/3">
+                                <h3 class="text-2xl font-bold text-gray-800 mb-2">Our Team</h3>
+                                <p class="text-gray-600 mb-4">
+                                    Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua.
+                                </p>
+                                <button data-tab="people" class="tab-link text-blue-700 font-semibold hover:text-blue-900 transition duration-150" onclick="showTab('people')">
+                                    Meet our team &rarr;
+                                </button>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </section>
+
+            <!-- RESEARCH Tab Content (Existing) -->
+            <section id="tab-research" class="tab-content hidden">
+                <div class="bg-white p-6 md:p-10 rounded-xl shadow-lg">
+                    <h2 class="text-4xl font-bold text-gray-900 mb-6 border-b pb-2 border-blue-100">Current Research Themes</h2>
+
+                    <div class="space-y-8">
+                        <div class="p-4 rounded-lg bg-gray-50 border border-gray-200">
+                            <h3 class="text-2xl font-semibold text-gray-800 mb-2">1. Decentralized Learning Frameworks</h3>
+                            <p class="text-gray-600">Developing secure and efficient federated learning models that can operate across untrusted nodes while maintaining data privacy and integrity. Focus areas include homomorphic encryption integration.</p>
+                        </div>
+                        <div class="p-4 rounded-lg bg-gray-50 border border-gray-200">
+                            <h3 class="text-2xl font-semibold text-gray-800 mb-2">2. Bio-Inspired Optimization</h3>
+                            <p class="text-gray-600">Applying principles from swarm intelligence and neural plasticity to create self-healing and adaptive system schedulers for cloud computing environments.</p>
+                        </div>
+                        <div class="p-4 rounded-lg bg-gray-50 border border-gray-200">
+                            <h3 class="text-2xl font-semibold text-gray-800 mb-2">3. Quantum-Resistant Consensus</h3>
+                            <p class="text-gray-600">Investigating and prototyping novel blockchain consensus mechanisms that are resilient against future quantum computing attacks, leveraging lattice-based cryptography.</p>
+                        </div>
+                    </div>
+                </div>
+            </section>
+
+            <!-- PEOPLE Tab Content (Existing) -->
+            <section id="tab-people" class="tab-content hidden">
+                <div class="bg-white p-6 md:p-10 rounded-xl shadow-lg">
+                    <h2 class="text-4xl font-bold text-gray-900 mb-6 border-b pb-2 border-blue-100">Meet the Team</h2>
+                    <div class="grid md:grid-cols-2 lg:grid-cols-3 gap-6">
+
+                        <!-- PI -->
+                        <div class="text-center p-4 bg-blue-50 rounded-lg shadow-md hover:shadow-xl transition duration-300">
+                            <img src="https://placehold.co/120x120/1e40af/ffffff?text=PI" alt="Principal Investigator" class="w-24 h-24 rounded-full mx-auto mb-3 border-4 border-blue-700">
+                            <h3 class="text-xl font-bold text-gray-800">Dr. Evelyn Reed</h3>
+                            <p class="text-blue-600 font-medium">Principal Investigator</p>
+                            <p class="text-sm text-gray-500 mt-1">Systems Architecture, AI Ethics</p>
+                        </div>
+
+                        <!-- Postdoc -->
+                        <div class="text-center p-4 bg-gray-50 rounded-lg shadow-md hover:shadow-xl transition duration-300">
+                            <img src="https://placehold.co/120x120/6b7280/ffffff?text=PD" alt="Postdoctoral Researcher" class="w-24 h-24 rounded-full mx-auto mb-3 border-4 border-gray-400">
+                            <h3 class="text-xl font-bold text-gray-800">Dr. Kai Lin</h3>
+                            <p class="text-gray-600 font-medium">Postdoctoral Researcher</p>
+                            <p class="text-sm text-gray-500 mt-1">Decentralized Optimization</p>
+                        </div>
+
+                        <!-- Student -->
+                        <div class="text-center p-4 bg-gray-50 rounded-lg shadow-md hover:shadow-xl transition duration-300">
+                            <img src="https://placehold.co/120x120/6b7280/ffffff?text=GR" alt="Graduate Student" class="w-24 h-24 rounded-full mx-auto mb-3 border-4 border-gray-400">
+                            <h3 class="text-xl font-bold text-gray-800">Sofia Rodriguez</h3>
+                            <p class="text-gray-600 font-medium">Ph.D. Candidate</p>
+                            <p class="text-sm text-gray-500 mt-1">Federated Learning Security</p>
+                        </div>
+
+                    </div>
+                </div>
+            </section>
+
+            <!-- PUBLICATIONS Tab Content (Existing) -->
+            <section id="tab-publications" class="tab-content hidden">
+                <div class="bg-white p-6 md:p-10 rounded-xl shadow-lg">
+                    <h2 class="text-4xl font-bold text-gray-900 mb-6 border-b pb-2 border-blue-100">Key Publications</h2>
+
+                    <ul class="space-y-4">
+                        <li class="p-3 border-b border-gray-100 hover:bg-gray-50 rounded-md transition duration-150">
+                            <p class="font-semibold text-lg text-gray-800">Reed, E., & Lin, K. (2024). A Quantum-Resistant DAG-Based Consensus Protocol for Scalable IoT Networks. <span class="text-blue-600 italic">Journal of Distributed Systems</span>, 42(3), 112-130.</p>
+                            <span class="text-sm text-gray-500">DOI: 10.1016/j.jds.2024.03.001</span>
+                        </li>
+                        <li class="p-3 border-b border-gray-100 hover:bg-gray-50 rounded-md transition duration-150">
+                            <p class="font-semibold text-lg text-gray-800">Rodriguez, S., et al. (2023). Enhancing Data Privacy in Federated Edge Computing using Differential Privacy Masking. <span class="text-blue-600 italic">IEEE Transactions on Mobile Computing</span>, 22(12), 6500-6515.</p>
+                            <span class="text-sm text-gray-500">DOI: 10.1109/TMC.2023.999999</span>
+                        </li>
+                        <li class="p-3 border-b border-gray-100 hover:bg-gray-50 rounded-md transition duration-150">
+                            <p class="font-semibold text-lg text-gray-800">Lin, K., & Reed, E. (2022). Swarm Intelligence for Dynamic Resource Allocation in Serverless Architectures. <span class="text-blue-600 italic">ACM Computing Surveys</span>, 55(1), Article 10.</p>
+                            <span class="text-sm text-gray-500">DOI: 10.1145/3555555</span>
+                        </li>
+                    </ul>
+                </div>
+            </section>
+
+            <!-- CONTACT Tab Content (Existing) -->
+            <section id="tab-contact" class="tab-content hidden">
+                <div class="bg-white p-6 md:p-10 rounded-xl shadow-lg">
+                    <h2 class="text-4xl font-bold text-gray-900 mb-6 border-b pb-2 border-blue-100">Get in Touch</h2>
+
+                    <div class="grid md:grid-cols-2 gap-8">
+                        <div>
+                            <h3 class="text-2xl font-semibold text-blue-700 mb-3">Office Location</h3>
+                            <p class="text-gray-700 mb-4">
+                                Nexus Research Lab<br>
+                                Engineering Building, Suite 404<br>
+                                University of Applied Sciences<br>
+                                123 Research Parkway, Science City, SC 90210
+                            </p>
+                            <h3 class="text-2xl font-semibold text-blue-700 mb-3">General Inquiry</h3>
+                            <p class="text-gray-700">Email: <a href="mailto:info@nexuslab.edu" class="text-blue-600 hover:underline">info@nexuslab.edu</a></p>
+                            <p class="text-gray-700">Phone: <a href="tel:+15551234567" class="text-blue-600 hover:underline">(555) 123-4567</a></p>
+                        </div>
+                        <div>
+                            <h3 class="text-2xl font-semibold text-blue-700 mb-3">Connect</h3>
+                            <ul class="space-y-2 text-gray-700">
+                                <li><a href="#" class="text-blue-600 hover:underline">Twitter/X: @NexusLab_AI</a></li>
+                                <li><a href="#" class="text-blue-600 hover:underline">GitHub: NexusLab-Research</a></li>
+                                <li><a href="#" class="text-blue-600 hover:underline">LinkedIn: The Nexus Lab</a></li>
+                            </ul>
+                        </div>
+                    </div>
+                </div>
+            </section>
+
+        </div>
+    </main>
+
+    <!-- Footer -->
+    <footer class="bg-gray-800 text-white p-6 mt-10">
+        <div class="container mx-auto text-center text-sm">
+            &copy; 2024 Open Med Tech Lab. All Rights Reserved.
+        </div>
+    </footer>
+
+    <script>
+        // Use a function to simplify linking from internal buttons/links
+        function showTab(tabId) {
+            // 1. Hide all content tabs
+            document.querySelectorAll('.tab-content').forEach(content => {
+                content.classList.add('hidden');
+            });
+
+            // 2. Show the active content tab
+            const activeContent = document.getElementById(`tab-${tabId}`);
+            if (activeContent) {
+                activeContent.classList.remove('hidden');
+                // Scroll to the top of the main content area for better UX
+                activeContent.scrollIntoView({ behavior: 'smooth' });
+            }
+
+            // 3. Update desktop button state
+            document.querySelectorAll('.tab-button').forEach(btn => {
+                btn.classList.remove('active');
+            });
+            const activeButton = document.querySelector(`.tab-button[data-tab="${tabId}"]`);
+            if (activeButton) {
+                activeButton.classList.add('active');
+            }
+
+            // 4. Update mobile button state
+            document.querySelectorAll('.mobile-nav-item').forEach(btn => {
+                btn.classList.remove('active');
+            });
+            const activeMobileButton = document.querySelector(`.mobile-nav-item[data-tab="${tabId}"]`);
+            if (activeMobileButton) {
+                activeMobileButton.classList.add('active');
+            }
+        }
+
+        document.addEventListener('DOMContentLoaded', () => {
+            const desktopNav = document.getElementById('desktop-nav');
+            const mobileMenuBtn = document.getElementById('mobile-menu-btn');
+            const mobileNavMenu = document.getElementById('mobile-nav-menu');
+            const menuIconOpen = document.getElementById('menu-icon-open');
+            const menuIconClose = document.getElementById('menu-icon-close');
+            const contentContainer = document.getElementById('content-container');
+
+
+            // --- Attach Event Listeners (using the common showTab function) ---
+
+            // Desktop Nav Clicks
+            desktopNav.querySelectorAll('.tab-button').forEach(button => {
+                button.addEventListener('click', (e) => {
+                    showTab(e.currentTarget.dataset.tab);
+                });
+            });
+
+            // Mobile Nav Clicks
+            mobileNavMenu.querySelectorAll('.mobile-nav-item').forEach(button => {
+                button.addEventListener('click', (e) => {
+                    showTab(e.currentTarget.dataset.tab);
+                    // Close mobile menu after selection
+                    mobileNavMenu.classList.add('hidden');
+                    menuIconOpen.classList.remove('hidden');
+                    menuIconClose.classList.add('hidden');
+                });
+            });
+
+            // Mobile Menu Toggle
+            mobileMenuBtn.addEventListener('click', () => {
+                const isHidden = mobileNavMenu.classList.contains('hidden');
+                if (isHidden) {
+                    mobileNavMenu.classList.remove('hidden');
+                    menuIconOpen.classList.add('hidden');
+                    menuIconClose.classList.remove('hidden');
+                } else {
+                    mobileNavMenu.classList.add('hidden');
+                    menuIconOpen.classList.remove('hidden');
+                    menuIconClose.classList.add('hidden');
+                }
+            });
+
+            // Initialize to the 'home' tab on load
+            showTab('home');
+        });
+    </script>
+</body>
+</html>
