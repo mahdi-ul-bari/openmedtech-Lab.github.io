@@ -5,17 +5,17 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <link href="https://fonts.googleapis.com/css2?family=Merriweather:wght@400;700&display=swap" rel="stylesheet">
     <title>The OpenMedTech Lab</title>
-    <!-- Load Tailwind CSS -->
     <script src="https://cdn.tailwindcss.com"></script>
     <style>
         /* Custom styles for better aesthetics */
         :root {
             --primary-color: #1e40af; /* Tailwind blue-700 */
         }
-       body {
-    font-family: 'Merriweather', serif; /* 'Merriweather' is the specific font name */
-    background-color: #f8fafc; /* Tailwind slate-50 */
-                    }
+        body {
+            font-family: 'Merriweather', serif;
+            background-color: #f8fafc; /* Tailwind slate-50 */
+        }
+        /* Active state for main navigation buttons */
         .tab-button.active {
             background-color: var(--primary-color);
             color: white;
@@ -28,317 +28,159 @@
             color: #f97316;
             font-weight: 600;
         }
+        
+        /* SLIDER CSS for positioning controls */
+        .slider-container {
+            max-width: 600px;
+            margin: 0 auto;
+            position: relative; 
+            overflow: hidden;
+        }
+        .slider-image {
+            width: 100%;
+            display: block;
+            object-fit: cover;
+            transition: transform 0.5s ease-in-out;
+            border-radius: 0.5rem;
+        }
+        .slider-btn {
+            position: absolute;
+            top: 50%;
+            transform: translateY(-50%);
+            background: rgba(0, 0, 0, 0.5);
+            color: white;
+            border: none;
+            padding: 10px 12px;
+            cursor: pointer;
+            font-size: 1.5rem;
+            line-height: 1;
+            z-index: 10;
+            border-radius: 9999px;
+            transition: background 0.2s;
+            opacity: 0.8;
+        }
+        .slider-btn:hover {
+            background: rgba(0, 0, 0, 0.8);
+            opacity: 1;
+        }
+        .prev-btn { left: 10px; }
+        .next-btn { right: 10px; }
     </style>
 </head>
 <body class="min-h-screen flex flex-col">
 
-    <!-- Header and Navigation -->
     <header class="bg-white shadow-md sticky top-0 z-10">
         <div class="container mx-auto px-4 py-4 flex justify-between items-center">
             <h1 class="text-3xl font-extrabold text-gray-800">
                 <span class="text-blue-700">Open Med</span> Tech
             </h1>
 
-            <!-- Desktop Navigation -->
             <nav id="desktop-nav" class="hidden md:flex space-x-2 lg:space-x-4">
                 <button id="tab-home-btn" data-tab="home" class="tab-button active px-4 py-2 rounded-lg text-sm font-medium text-gray-700 transition duration-150 hover:bg-blue-100 hover:text-blue-700">Home</button>
-                <button id="tab-research-btn" data-tab="research" class="tab-button px-4 py-2 rounded-lg text-sm font-medium text-gray-700 transition duration-150 hover:bg-blue-100 hover:text-blue-700">Research</button>
+
+                <div id="projects-dropdown" class="relative group">
+                    <button id="tab-projects-btn" class="tab-button px-4 py-2 rounded-lg text-sm font-medium text-gray-700 transition duration-150 hover:bg-blue-100 hover:text-blue-700 flex items-center">
+                        Projects
+                        <svg class="ml-1 w-4 h-4 transition-transform duration-200 group-hover:rotate-180" fill="none" stroke="currentColor" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M19 9l-7 7-7-7"></path></svg>
+                    </button>
+
+                    <div id="projects-menu" class="absolute left-0 mt-2 w-48 bg-white rounded-md shadow-lg py-1 z-20 hidden group-hover:block transition duration-200">
+                        <a href="#OpenXamp" data-tab="research" data-project="OpenXamp" class="dropdown-item block px-4 py-2 text-sm text-gray-700 hover:bg-blue-100 hover:text-blue-700" onclick="handleProjectClick(event)">OpenXamp</a>
+                        <a href="#OpenXstim" data-tab="research" data-project="OpenXstim" class="dropdown-item block px-4 py-2 text-sm text-gray-700 hover:bg-blue-100 hover:text-blue-700" onclick="handleProjectClick(event)">OpenXstim</a>
+                        <a href="#OpenXhand" data-tab="research" data-project="OpenXhand" class="dropdown-item block px-4 py-2 text-sm text-gray-700 hover:bg-blue-100 hover:text-blue-700" onclick="handleProjectClick(event)">OpenXhand</a>
+                        <a href="#OpenXwheel" data-tab="research" data-project="OpenXwheel" class="dropdown-item block px-4 py-2 text-sm text-gray-700 hover:bg-blue-100 hover:text-blue-700" onclick="handleProjectClick(event)">OpenXwheel</a>
+                        <a href="#OpenXstand" data-tab="research" data-project="OpenXstand" class="dropdown-item block px-4 py-2 text-sm text-gray-700 hover:bg-blue-100 hover:text-blue-700" onclick="handleProjectClick(event)">OpenXstand</a>
+                        <a href="#OpenXwalk" data-tab="research" data-project="OpenXwalk" class="dropdown-item block px-4 py-2 text-sm text-gray-700 hover:bg-blue-100 hover:text-blue-700" onclick="handleProjectClick(event)">OpenXwalk</a>
+                        <div class="border-t border-gray-100 my-1"></div>
+                        <a href="#research" data-tab="research" class="dropdown-item block px-4 py-2 text-sm font-semibold text-blue-700 hover:bg-blue-100" onclick="handleProjectClick(event)">All Projects</a>
+                    </div>
+                </div>
                 <button id="tab-people-btn" data-tab="people" class="tab-button px-4 py-2 rounded-lg text-sm font-medium text-gray-700 transition duration-150 hover:bg-blue-100 hover:text-blue-700">People</button>
                 <button id="tab-publications-btn" data-tab="publications" class="tab-button px-4 py-2 rounded-lg text-sm font-medium text-gray-700 transition duration-150 hover:bg-blue-100 hover:text-blue-700">Publications</button>
                 <button id="tab-contact-btn" data-tab="contact" class="tab-button px-4 py-2 rounded-lg text-sm font-medium text-gray-700 transition duration-150 hover:bg-blue-100 hover:text-blue-700">Contact</button>
             </nav>
 
-            <!-- Mobile Menu Button -->
             <button id="mobile-menu-btn" class="md:hidden p-2 rounded-md text-gray-700 hover:bg-gray-100 transition duration-150">
-                <!-- Hamburger Icon (Menu) -->
                 <svg id="menu-icon-open" class="w-6 h-6" fill="none" stroke="currentColor" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M4 6h16M4 12h16M4 18h16"></path></svg>
-                <!-- Close Icon (X) -->
                 <svg id="menu-icon-close" class="w-6 h-6 hidden" fill="none" stroke="currentColor" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M6 18L18 6M6 6l12 12"></path></svg>
             </button>
         </div>
 
-        <!-- Mobile Menu Dropdown -->
         <nav id="mobile-nav-menu" class="md:hidden hidden bg-white border-t border-gray-200 shadow-lg">
             <button data-tab="home" class="mobile-nav-item active w-full text-left px-4 py-3 text-gray-700 hover:bg-gray-100 transition duration-150 text-sm">Home</button>
-            <button data-tab="research" class="mobile-nav-item w-full text-left px-4 py-3 text-gray-700 hover:bg-gray-100 transition duration-150 text-sm">Research</button>
+            
+            <button data-tab="research" class="mobile-nav-item w-full text-left px-4 py-3 font-bold text-blue-700 bg-blue-50 border-l-4 border-blue-700 transition duration-150 text-sm">Projects (See All)</button>
+
             <button data-tab="people" class="mobile-nav-item w-full text-left px-4 py-3 text-gray-700 hover:bg-gray-100 transition duration-150 text-sm">People</button>
             <button data-tab="publications" class="mobile-nav-item w-full text-left px-4 py-3 text-gray-700 hover:bg-gray-100 transition duration-150 text-sm">Publications</button>
             <button data-tab="contact" class="mobile-nav-item w-full text-left px-4 py-3 text-gray-700 hover:bg-gray-100 transition duration-150 text-sm">Contact</button>
         </nav>
     </header>
 
-    <!-- Main Content Area -->
     <main class="container mx-auto px-4 py-8 flex-grow">
         <div id="content-container">
 
-            <!-- HOME Tab Content (Updated with Open Med Tech Content) -->
             <section id="tab-home" class="tab-content">
                 <div class="bg-white p-6 md:p-10 rounded-xl shadow-lg mb-8">
-                    <h2 class="text-4xl font-bold text-gray-900 mb-4 border-b pb-2 border-blue-100">Welcome to our lab!</h2>
+                    <h2 class="text-4xl font-bold text-gray-900 mb-4 border-b pb-2 border-blue-100">Welcome to Open Source Medical Technology Lab!</h2>
+                    
                     <p class="text-lg text-gray-700 mb-6 text-justify">
                         OpenMedTech Lab is an international collaborative community dedicated to advancing medical technology through innovative open source solutions. 
                         Convenor of the OpenMedTech Lab is Dr Monzurul Alam. We bring together developers, engineers, healthcare professionals, enthusiasts, 
-                        everyone to create impactful projects for the community. Anyone from anywhere is warmly welcome to contribute to our projects.
+                        everyone to create impactful projects for the community. Anyone from anywhere is warmly welcome to contribute to our projects!
                     </p>
 
                     <div class="flex flex-col sm:flex-row space-y-4 sm:space-y-0 sm:space-x-4">
-                        <!-- GitHub Button -->
-                        <a href="https://github.com/mahdi-ul-bari/openmedtech-Lab.github.io" 
+                        <a href="https://github.com/OpenMedTech-Lab" 
                         target="_blank" class="w-full sm:w-auto text-center bg-gray-800 text-white font-semibold py-3 px-6 rounded-lg hover:bg-gray-900 transition duration-200 shadow-md">
-                            GitHub
+                            Visit Our GitHub
                         </a>
                     </div>
                 </div>
 
-                <!-- Highlights Section -->
                 <div class="p-6 md:p-10">
-                    <h2 class="text-3xl font-bold text-gray-900 mb-8 border-b pb-2 border-gray-200">Highlights</h2>
+                    <h2 class="text-3xl font-bold text-gray-900 mb-8 border-b pb-2 border-gray-200">Featured Projects</h2>
+                    
+                    <div class="slider-container shadow-xl">
+                        <img id="slider-image" src="https://openmedtech-lab.github.io/images/OpenXamp.jpg" alt="Featured Project" class="slider-image">
+                        <button id="prev-btn" class="slider-btn prev-btn">❮</button>
+                        <button id="next-btn" class="slider-btn next-btn">❯</button>
+                    </div>
 
-                    <div class="space-y-12">
-                        <!-- Feature 1: Our Research -->
-                        <div class="flex flex-col lg:flex-row items-center bg-white p-6 rounded-xl shadow-lg hover:shadow-xl transition duration-300">
-                            <img src="https://placehold.co/300x200/1e40af/ffffff?text=RESEARCH+IMAGE" alt="Research Placeholder" class="w-full lg:w-1/3 h-auto rounded-lg object-cover mb-4 lg:mb-0 lg:mr-6">
-                            <div class="lg:w-2/3">
-                                <h3 class="text-2xl font-bold text-gray-800 mb-2">Our Research</h3>
-                                <p class="text-gray-600 mb-4">
-                                    Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua.
-                                </p>
-                                <button data-tab="publications" class="tab-link text-blue-700 font-semibold hover:text-blue-900 transition duration-150" onclick="showTab('publications')">
-                                    See our publications &rarr;
-                                </button>
-                            </div>
-                        </div>
-
-                        <!-- Feature 2: Our Projects (Flipped layout) -->
-                        <div class="flex flex-col lg:flex-row-reverse items-center bg-white p-6 rounded-xl shadow-lg hover:shadow-xl transition duration-300">
-                            <img src="https://placehold.co/300x200/1e40af/ffffff?text=PROJECTS+IMAGE" alt="Projects Placeholder" class="w-full lg:w-1/3 h-auto rounded-lg object-cover mb-4 lg:mb-0 lg:ml-6">
-                            <div class="lg:w-2/3">
-                                <h3 class="text-2xl font-bold text-gray-800 mb-2">Our Projects</h3>
-                                <p class="text-gray-600 mb-4">
-                                    Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua.
-                                </p>
-                                <button data-tab="research" class="tab-link text-blue-700 font-semibold hover:text-blue-900 transition duration-150" onclick="showTab('research')">
-                                    Browse our projects &rarr;
-                                </button>
-                            </div>
-                        </div>
-
-                        <!-- Feature 3: Our Team -->
-                        <div class="flex flex-col lg:flex-row items-center bg-white p-6 rounded-xl shadow-lg hover:shadow-xl transition duration-300">
-                            <img src="https://placehold.co/300x200/1e40af/ffffff?text=TEAM+IMAGE" alt="Team Placeholder" class="w-full lg:w-1/3 h-auto rounded-lg object-cover mb-4 lg:mb-0 lg:mr-6">
-                            <div class="lg:w-2/3">
-                                <h3 class="text-2xl font-bold text-gray-800 mb-2">Our Team</h3>
-                                <p class="text-gray-600 mb-4">
-                                    Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua.
-                                </p>
-                                <button data-tab="people" class="tab-link text-blue-700 font-semibold hover:text-blue-900 transition duration-150" onclick="showTab('people')">
-                                    Meet our team &rarr;
-                                </button>
-                            </div>
-                        </div>
+                    <div class="text-center mt-6">
+                        <button data-tab="research" class="tab-link text-blue-700 font-semibold hover:text-blue-900 transition duration-150 text-xl" onclick="showTab('research')">
+                            See All Projects &rarr;
+                        </button>
                     </div>
                 </div>
             </section>
 
-            <!-- RESEARCH Tab Content (Existing) -->
             <section id="tab-research" class="tab-content hidden">
                 <div class="bg-white p-6 md:p-10 rounded-xl shadow-lg">
-                    <h2 class="text-4xl font-bold text-gray-900 mb-6 border-b pb-2 border-blue-100">Current Research Themes</h2>
+                    <h2 class="text-4xl font-bold text-gray-900 mb-6 border-b pb-2 border-blue-100">OpenMedTech Lab Projects</h2>
 
-                    <div class="space-y-8">
-                        <div class="p-4 rounded-lg bg-gray-50 border border-gray-200">
-                            <h3 class="text-2xl font-semibold text-gray-800 mb-2">1. Decentralized Learning Frameworks</h3>
-                            <p class="text-gray-600">Developing secure and efficient federated learning models that can operate across untrusted nodes while maintaining data privacy and integrity. Focus areas include homomorphic encryption integration.</p>
-                        </div>
-                        <div class="p-4 rounded-lg bg-gray-50 border border-gray-200">
-                            <h3 class="text-2xl font-semibold text-gray-800 mb-2">2. Bio-Inspired Optimization</h3>
-                            <p class="text-gray-600">Applying principles from swarm intelligence and neural plasticity to create self-healing and adaptive system schedulers for cloud computing environments.</p>
-                        </div>
-                        <div class="p-4 rounded-lg bg-gray-50 border border-gray-200">
-                            <h3 class="text-2xl font-semibold text-gray-800 mb-2">3. Quantum-Resistant Consensus</h3>
-                            <p class="text-gray-600">Investigating and prototyping novel blockchain consensus mechanisms that are resilient against future quantum computing attacks, leveraging lattice-based cryptography.</p>
-                        </div>
-                    </div>
-                </div>
-            </section>
-
-            <!-- PEOPLE Tab Content (Existing) -->
-            <section id="tab-people" class="tab-content hidden">
-                <div class="bg-white p-6 md:p-10 rounded-xl shadow-lg">
-                    <h2 class="text-4xl font-bold text-gray-900 mb-6 border-b pb-2 border-blue-100">Meet the Team</h2>
-                    <div class="grid md:grid-cols-2 lg:grid-cols-3 gap-6">
-
-                        <!-- PI -->
-                        <div class="text-center p-4 bg-blue-50 rounded-lg shadow-md hover:shadow-xl transition duration-300">
-                            <img src="https://placehold.co/120x120/1e40af/ffffff?text=PI" alt="Principal Investigator" class="w-24 h-24 rounded-full mx-auto mb-3 border-4 border-blue-700">
-                            <h3 class="text-xl font-bold text-gray-800">Dr. Evelyn Reed</h3>
-                            <p class="text-blue-600 font-medium">Principal Investigator</p>
-                            <p class="text-sm text-gray-500 mt-1">Systems Architecture, AI Ethics</p>
+                    <div class="space-y-12">
+                        
+                        <div id="OpenXamp" class="project-card flex flex-col lg:flex-row items-start border p-4 rounded-lg bg-gray-50">
+                            <img src="https://openmedtech-lab.github.io/images/OpenXamp.jpg" alt="OpenXamp" class="w-full lg:w-1/3 h-auto rounded-lg object-cover mb-4 lg:mb-0 lg:mr-6 shadow-md">
+                            <div class="lg:w-2/3">
+                                <h3 class="text-2xl font-semibold text-blue-700 mb-2">OpenXamp: Open source biosignal amplifier</h3>
+                                <p class="text-gray-700 text-justify mb-3">OpenXamp is a cost-effective, open-source bio-signal amplifier designed to filter and amplify physiological signals for laboratory and DIY experiments. It features a high common-mode-rejection-ratio (CMRR) pre-amplifier for differential signal detection, with an option to short the inverting input for single-ended use. The device includes band-pass filtering and adjustable amplification to tailor the signal strength. Users can either utilize the amplified analog signal directly or convert it to digital via an integrated analog-to-digital converter (ADC) and microcontroller (MCU). The digitized data can then be transmitted to a computer via USB, leveraging the MCU's built-in interfaces for streamlined data handling and analysis. Commonly available electronic components are being used in the stimulator so that it can be developed in places where availability is an issue. Total components cost is only around $25!</p>
+                                <a href="https://github.com/OpenMedTech-Lab/OpenXamp" target="_blank" class="text-sm text-blue-600 font-medium hover:underline">View Project on GitHub &rarr;</a>
+                            </div>
                         </div>
 
-                        <!-- Postdoc -->
-                        <div class="text-center p-4 bg-gray-50 rounded-lg shadow-md hover:shadow-xl transition duration-300">
-                            <img src="https://placehold.co/120x120/6b7280/ffffff?text=PD" alt="Postdoctoral Researcher" class="w-24 h-24 rounded-full mx-auto mb-3 border-4 border-gray-400">
-                            <h3 class="text-xl font-bold text-gray-800">Dr. Kai Lin</h3>
-                            <p class="text-gray-600 font-medium">Postdoctoral Researcher</p>
-                            <p class="text-sm text-gray-500 mt-1">Decentralized Optimization</p>
+                        <div id="OpenXstim" class="project-card flex flex-col lg:flex-row-reverse items-start border p-4 rounded-lg bg-gray-50">
+                            <img src="https://openmedtech-lab.github.io/images/OpenXstim.png" alt="OpenXstim" class="w-full lg:w-1/3 h-auto rounded-lg object-cover mb-4 lg:mb-0 lg:ml-6 shadow-md">
+                            <div class="lg:w-2/3 lg:pr-6">
+                                <h3 class="text-2xl font-semibold text-blue-700 mb-2">OpenXstim: Open source electrical stimulator</h3>
+                                <p class="text-gray-700 text-justify mb-3">Transcutaneous spinal cord stimulation (tSES), a non-invasive, spinal cord neuromodulation method holds tremendous promise and hope for the people with paralysis resultant of spinal cord injury (SCI) and other neurological conditions. Yet, there are not many options of such stimulation devices compared to other successful electrical stimulators, especially for most people with neurological injuries in the developing world. Hence, we have developed an open source programmable transcutaneous electrical stimulator (TES) to facilitate researchers to develop successful stimulation therapy for people with neurological conditions. Commonly available electronic components are being used in the stimulator so that it can be developed in places where availability is an issue. Total components cost is around $200!</p>
+                                <a href="https://github.com/OpenMedTech-Lab/OpenXstim" target="_blank" class="text-sm text-blue-600 font-medium hover:underline">View Project on GitHub &rarr;</a>
+                            </div>
                         </div>
 
-                        <!-- Student -->
-                        <div class="text-center p-4 bg-gray-50 rounded-lg shadow-md hover:shadow-xl transition duration-300">
-                            <img src="https://placehold.co/120x120/6b7280/ffffff?text=GR" alt="Graduate Student" class="w-24 h-24 rounded-full mx-auto mb-3 border-4 border-gray-400">
-                            <h3 class="text-xl font-bold text-gray-800">Sofia Rodriguez</h3>
-                            <p class="text-gray-600 font-medium">Ph.D. Candidate</p>
-                            <p class="text-sm text-gray-500 mt-1">Federated Learning Security</p>
-                        </div>
-
-                    </div>
-                </div>
-            </section>
-
-            <!-- PUBLICATIONS Tab Content (Existing) -->
-            <section id="tab-publications" class="tab-content hidden">
-                <div class="bg-white p-6 md:p-10 rounded-xl shadow-lg">
-                    <h2 class="text-4xl font-bold text-gray-900 mb-6 border-b pb-2 border-blue-100">Key Publications</h2>
-
-                    <ul class="space-y-4">
-                        <li class="p-3 border-b border-gray-100 hover:bg-gray-50 rounded-md transition duration-150">
-                            <p class="font-semibold text-lg text-gray-800">Reed, E., & Lin, K. (2024). A Quantum-Resistant DAG-Based Consensus Protocol for Scalable IoT Networks. <span class="text-blue-600 italic">Journal of Distributed Systems</span>, 42(3), 112-130.</p>
-                            <span class="text-sm text-gray-500">DOI: 10.1016/j.jds.2024.03.001</span>
-                        </li>
-                        <li class="p-3 border-b border-gray-100 hover:bg-gray-50 rounded-md transition duration-150">
-                            <p class="font-semibold text-lg text-gray-800">Rodriguez, S., et al. (2023). Enhancing Data Privacy in Federated Edge Computing using Differential Privacy Masking. <span class="text-blue-600 italic">IEEE Transactions on Mobile Computing</span>, 22(12), 6500-6515.</p>
-                            <span class="text-sm text-gray-500">DOI: 10.1109/TMC.2023.999999</span>
-                        </li>
-                        <li class="p-3 border-b border-gray-100 hover:bg-gray-50 rounded-md transition duration-150">
-                            <p class="font-semibold text-lg text-gray-800">Lin, K., & Reed, E. (2022). Swarm Intelligence for Dynamic Resource Allocation in Serverless Architectures. <span class="text-blue-600 italic">ACM Computing Surveys</span>, 55(1), Article 10.</p>
-                            <span class="text-sm text-gray-500">DOI: 10.1145/3555555</span>
-                        </li>
-                    </ul>
-                </div>
-            </section>
-
-            <!-- CONTACT Tab Content (Existing) -->
-            <section id="tab-contact" class="tab-content hidden">
-                <div class="bg-white p-6 md:p-10 rounded-xl shadow-lg">
-                    <h2 class="text-4xl font-bold text-gray-900 mb-6 border-b pb-2 border-blue-100">Get in Touch</h2>
-
-                    <div class="grid md:grid-cols-2 gap-8">
-                        <div>
-                            <h3 class="text-2xl font-semibold text-blue-700 mb-3">Office Location</h3>
-                            <p class="text-gray-700 mb-4">
-                                Nexus Research Lab<br>
-                                Engineering Building, Suite 404<br>
-                                University of Applied Sciences<br>
-                                123 Research Parkway, Science City, SC 90210
-                            </p>
-                            <h3 class="text-2xl font-semibold text-blue-700 mb-3">General Inquiry</h3>
-                            <p class="text-gray-700">Email: <a href="mailto:info@nexuslab.edu" class="text-blue-600 hover:underline">info@nexuslab.edu</a></p>
-                            <p class="text-gray-700">Phone: <a href="tel:+15551234567" class="text-blue-600 hover:underline">(555) 123-4567</a></p>
-                        </div>
-                        <div>
-                            <h3 class="text-2xl font-semibold text-blue-700 mb-3">Connect</h3>
-                            <ul class="space-y-2 text-gray-700">
-                                <li><a href="#" class="text-blue-600 hover:underline">Twitter/X: @NexusLab_AI</a></li>
-                                <li><a href="#" class="text-blue-600 hover:underline">GitHub: NexusLab-Research</a></li>
-                                <li><a href="#" class="text-blue-600 hover:underline">LinkedIn: The Nexus Lab</a></li>
-                            </ul>
-                        </div>
-                    </div>
-                </div>
-            </section>
-
-        </div>
-    </main>
-
-    <!-- Footer -->
-    <footer class="bg-gray-800 text-white p-6 mt-10">
-        <div class="container mx-auto text-center text-sm">
-            &copy; 2024 Open Med Tech Lab. All Rights Reserved.
-        </div>
-    </footer>
-
-    <script>
-        // Use a function to simplify linking from internal buttons/links
-        function showTab(tabId) {
-            // 1. Hide all content tabs
-            document.querySelectorAll('.tab-content').forEach(content => {
-                content.classList.add('hidden');
-            });
-
-            // 2. Show the active content tab
-            const activeContent = document.getElementById(`tab-${tabId}`);
-            if (activeContent) {
-                activeContent.classList.remove('hidden');
-                // Scroll to the top of the main content area for better UX
-                activeContent.scrollIntoView({ behavior: 'smooth' });
-            }
-
-            // 3. Update desktop button state
-            document.querySelectorAll('.tab-button').forEach(btn => {
-                btn.classList.remove('active');
-            });
-            const activeButton = document.querySelector(`.tab-button[data-tab="${tabId}"]`);
-            if (activeButton) {
-                activeButton.classList.add('active');
-            }
-
-            // 4. Update mobile button state
-            document.querySelectorAll('.mobile-nav-item').forEach(btn => {
-                btn.classList.remove('active');
-            });
-            const activeMobileButton = document.querySelector(`.mobile-nav-item[data-tab="${tabId}"]`);
-            if (activeMobileButton) {
-                activeMobileButton.classList.add('active');
-            }
-        }
-
-        document.addEventListener('DOMContentLoaded', () => {
-            const desktopNav = document.getElementById('desktop-nav');
-            const mobileMenuBtn = document.getElementById('mobile-menu-btn');
-            const mobileNavMenu = document.getElementById('mobile-nav-menu');
-            const menuIconOpen = document.getElementById('menu-icon-open');
-            const menuIconClose = document.getElementById('menu-icon-close');
-            const contentContainer = document.getElementById('content-container');
-
-
-            // --- Attach Event Listeners (using the common showTab function) ---
-
-            // Desktop Nav Clicks
-            desktopNav.querySelectorAll('.tab-button').forEach(button => {
-                button.addEventListener('click', (e) => {
-                    showTab(e.currentTarget.dataset.tab);
-                });
-            });
-
-            // Mobile Nav Clicks
-            mobileNavMenu.querySelectorAll('.mobile-nav-item').forEach(button => {
-                button.addEventListener('click', (e) => {
-                    showTab(e.currentTarget.dataset.tab);
-                    // Close mobile menu after selection
-                    mobileNavMenu.classList.add('hidden');
-                    menuIconOpen.classList.remove('hidden');
-                    menuIconClose.classList.add('hidden');
-                });
-            });
-
-            // Mobile Menu Toggle
-            mobileMenuBtn.addEventListener('click', () => {
-                const isHidden = mobileNavMenu.classList.contains('hidden');
-                if (isHidden) {
-                    mobileNavMenu.classList.remove('hidden');
-                    menuIconOpen.classList.add('hidden');
-                    menuIconClose.classList.remove('hidden');
-                } else {
-                    mobileNavMenu.classList.add('hidden');
-                    menuIconOpen.classList.remove('hidden');
-                    menuIconClose.classList.add('hidden');
-                }
-            });
-
-            // Initialize to the 'home' tab on load
-            showTab('home');
-        });
-    </script>
-</body>
-</html>
+                        <div id="OpenXhand" class="project-card flex flex-col lg:flex-row items-start border p-4 rounded-lg bg-gray-50">
+                            <img src="https://openmedtech-lab.github.io/images/OpenXhand.jpeg" alt="OpenXhand" class="w-full lg:w-1/3 h-auto rounded-lg object-cover mb-4 lg:mb-0 lg:mr-6 shadow-md">
+                            <div class="lg:w-2/3">
+                                <h3 class="text-2xl font-semibold text-blue-700 mb-2">OpenXhand: Open source hand exokeleton</h3>
+                                <p class="text-gray-700 text-justify mb-3">Millions of individuals suffer from upper extremity paralysis caused by neurological disorders including stroke, traumatic brain injury, or spinal cord injury. Robotic hand exoskeletons can substitute the missing motor control and help restore the functions in daily operations. However, most of the hand exoskeletons are bulky, stationary, and cumbersome to use. Using 3D printing technology, we have developed a motorized, lightweight, fully wearable rehabilitative hand exoskeleton capable of producing various grasps needed for the execution of daily tasks. The exoskeleton can produce fingertip force up to 8 N and can
