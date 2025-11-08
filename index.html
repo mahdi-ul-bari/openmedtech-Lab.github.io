@@ -76,6 +76,20 @@
             /* Blends the texture image with the dark maroon background color */
             background-blend-mode: multiply; 
         }
+        /* --- DROPDOWN HOVER FIX (CSS) --- */
+        /* 1. Initial state for the dropdown menu (hidden but set up for transition) */
+        #projects-menu {
+            opacity: 0;
+            visibility: hidden;
+            /* Apply a 300ms delay when transitioning TO the hidden state */
+            transition: opacity 0.3s ease 0.3s, visibility 0.3s ease 0.3s; }
+            /* 2. Visible state when the parent group is hovered */
+        .group:hover #projects-menu {
+            opacity: 1;
+            visibility: visible;
+            /* Remove the delay when showing the menu so it appears instantly */
+            transition-delay: 0s;
+        }
     </style>
 </head>
 <body class="min-h-screen flex flex-col">
