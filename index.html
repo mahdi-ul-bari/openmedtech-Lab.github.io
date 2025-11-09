@@ -11,6 +11,10 @@
         :root {
             --primary-color: #7F1D1D; /* Tailwind red-900 (Dark Maroon) */
         }
+        .header-compensation {
+    padding-top: 100px; /* Adjust this value (e.g., 80px, 90px, 100px) 
+                           until the content starts right below the sticky header. */
+        }
         body {
             font-family: 'Merriweather', serif;
             background-color: #f8fafc; /* Tailwind slate-50 */
@@ -146,8 +150,8 @@
         </nav>
     </header>
 
-    <main class="container mx-auto px-4 py-8 flex-grow">
-        <div id="content-container">
+    <main class="container mx-auto px-4 flex-grow header-compensation">
+    <div id="content-container">
 
             <section id="tab-home" class="tab-content">
                 <div class="bg-white p-6 md:p-10 rounded-xl shadow-lg mb-8">
