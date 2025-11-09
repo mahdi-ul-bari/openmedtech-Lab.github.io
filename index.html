@@ -307,7 +307,53 @@
             const menuIconOpen = document.getElementById('menu-icon-open');
             const menuIconClose = document.getElementById('menu-icon-close');
             // const contentContainer = document.getElementById('content-container'); // No longer needed here
+document.addEventListener('DOMContentLoaded', () => {
+    // ===============================================
+    // *** NEW FIX: SUPPRESS INITIAL HASH SCROLL ***
+    // ===============================================
+    function suppressHashScroll() {
+        // If the URL contains a hash (e.g., #OpenXamp)
+        if (window.location.hash) {
+            // Check if the hash corresponds to a tab or a project ID
+            const hash = window.location.hash.substring(1);
 
+            // Prevent the default browser jump to the hash link
+            window.onload = function () {
+                setTimeout(function () {
+                    window.scrollTo(0, 0); // Force scroll to top
+                }, 1); // A small delay ensures this runs after the browser's attempt
+            }
+
+            // Optional: If you want to load the project tab based on the URL hash, 
+            // you would call showTab(tabId, true, hash) here instead of showTab('home', true).
+            // For now, let's keep the default behavior of loading 'home'.
+            
+        }
+    }
+    
+    // Run the suppressor function immediately
+    suppressHashScroll();
+    // ===============================================
+    
+    const desktopNav = document.getElementById('desktop-nav');
+    const mobileMenuBtn = document.getElementById('mobile-menu-btn');
+    const mobileNavMenu = document.getElementById('mobile-nav-menu');
+    const menuIconOpen = document.getElementById('menu-icon-open');
+    const menuIconClose = document.getElementById('menu-icon-close');
+    
+    // --- Attach Event Listeners for Main Tabs ---
+    // ... (rest of your event listeners, they remain the same) ...
+    
+    // --- Initialization ---
+    // 1. Setup project links to use handleProjectClick
+    document.querySelectorAll('.dropdown-item').forEach(link => {
+        link.addEventListener('click', handleProjectClick);
+    });
+
+    // 2. Initialize to the 'home' tab on load 
+    // This call is still necessary to set the initial tab state (visible/hidden, active buttons)
+    showTab('home', true); 
+});
             // --- Attach Event Listeners ---
 
             // Desktop Nav Clicks
