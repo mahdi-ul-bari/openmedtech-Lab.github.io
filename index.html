@@ -380,7 +380,44 @@ function prevSlide() {
 // Ensure the buttons are attached to the functions once the DOM is ready
 document.addEventListener('DOMContentLoaded', () => {
     // ... existing initialization code ...
+    function suppressHashScroll() {
+        // If the URL contains a hash (e.g., #OpenXamp)
+        if (window.location.hash) {
+            // Check if the hash corresponds to a tab or a project ID
+            const hash = window.location.hash.substring(1);
+
+            // Prevent the default browser jump to the hash link
+            window.onload = function () {
+                setTimeout(function () {
+                    window.scrollTo(0, 0); // Force scroll to top
+                }, 1); // A small delay ensures this runs after the browser's attempt
+            }
+            }
+    }
     
+    // Run the suppressor function immediately
+    suppressHashScroll();
+    // ===============================================
+    
+    const desktopNav = document.getElementById('desktop-nav');
+    const mobileMenuBtn = document.getElementById('mobile-menu-btn');
+    const mobileNavMenu = document.getElementById('mobile-nav-menu');
+    const menuIconOpen = document.getElementById('menu-icon-open');
+    const menuIconClose = document.getElementById('menu-icon-close');
+    
+    // --- Attach Event Listeners for Main Tabs ---
+    // ... (rest of your event listeners, they remain the same) ...
+    
+    // --- Initialization ---
+    // 1. Setup project links to use handleProjectClick
+    document.querySelectorAll('.dropdown-item').forEach(link => {
+        link.addEventListener('click', handleProjectClick);
+    });
+
+    // 2. Initialize to the 'home' tab on load 
+    // This call is still necessary to set the initial tab state (visible/hidden, active buttons)
+    showTab('home', true); 
+});
     // --- SLIDER EVENT LISTENERS ---
     const prevBtn = document.getElementById('prev-btn');
     const nextBtn = document.getElementById('next-btn');
