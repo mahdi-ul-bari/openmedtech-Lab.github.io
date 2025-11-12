@@ -83,11 +83,20 @@
         /* --- DROPDOWN HOVER FIX (CSS) --- */
         /* 1. Initial state for the dropdown menu (hidden but set up for transition) */
         #projects-menu {
-            opacity: 0;
-            visibility: hidden;
-            /* Apply a 300ms delay when transitioning TO the hidden state */
-            transition: opacity 0.3s ease 0.5s, visibility 0.3s ease 0.5s;
-        }
+            opacity: 0;
+            visibility: hidden;
+            /* --- 🚀 NEW COLLAPSE PROPERTIES --- */
+            max-height: 0; /* Starts collapsed (0 height) */
+            overflow: hidden; /* Important: Hides content that exceeds 0 height */
+            /* --------------------------------- */
+
+            /* Apply transitions to max-height, opacity, and visibility */
+            /* We keep the 0.5s delay when transitioning TO the hidden state */
+            transition: 
+                max-height 0.3s ease 0.5s, 
+                opacity 0.3s ease 0.5s, 
+                visibility 0.3s ease 0.5s;
+        }
         /* 2. Visible state when the parent group is hovered */
         .group:hover #projects-menu {
             opacity: 1;
