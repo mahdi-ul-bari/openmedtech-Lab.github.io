@@ -319,41 +319,37 @@
             }
         }
 
-        // New function to handle clicks from the Project Dropdown
-        function handleProjectClick(event) {
-            event.preventDefault(); // *** CRITICAL: PREVENTS DEFAULT JUMP/RELOAD ***
-            
-            const tabId = event.currentTarget.dataset.tab; // Should be 'research'
-            const projectHash = event.currentTarget.dataset.project; 
-            
-            currentProjectHash = projectHash;
+      // New function to handle clicks from the Project Dropdown
+function handleProjectClick(event) {
+    event.preventDefault(); 
+    
+    const tabId = event.currentTarget.dataset.tab; // Should be 'research'
+    const projectHash = event.currentTarget.dataset.project; 
+    
+    currentProjectHash = projectHash;
 
-            // Close mobile menu after selection (existing code)
-            const mobileNavMenu = document.getElementById('mobile-nav-menu');
-            const menuIconOpen = document.getElementById('menu-icon-open');
-            const menuIconClose = document.getElementById('menu-icon-close');
-            if (mobileNavMenu && !mobileNavMenu.classList.contains('hidden')) {
-                mobileNavMenu.classList.add('hidden');
-                menuIconOpen.classList.remove('hidden');
-                menuIconClose.classList.add('hidden');
-            }
+    // --- 🌟 NEW FIX: Force Blur on the Projects Button 🌟 ---
+    const projectsButton = document.getElementById('tab-projects-btn');
+    if (projectsButton) {
+        // Blur removes focus, which often helps clear the persistent :hover state
+        // when the mouse is over the container but not actively clicking.
+        projectsButton.blur(); 
+    }
+    // --------------------------------------------------------
 
-            // 🌟 NEW FIX: Force the dropdown to collapse by removing the group class
-            const projectsDropdown = document.getElementById('projects-dropdown');
-            if (projectsDropdown) {
-                // Temporarily remove 'group' to force 'hover' state off, triggering the collapse.
-                // We'll immediately re-add it in case the user's mouse is still on the button.
-                // This forces the CSS transition for 'max-height: 0' to begin.
-                projectsDropdown.classList.remove('group');
-                // Re-add the class slightly later to allow normal hovering again
-                setTimeout(() => {
-                    projectsDropdown.classList.add('group');
-                }, 100); // Small delay to ensure the click event finishes
-            }
-           
-            // Show the correct tab, passing the specific project hash
-            showTab(tabId, false, projectHash); 
-        }
+    // Close mobile menu after selection (existing code)
+    const mobileNavMenu = document.getElementById('mobile-nav-menu');
+    const menuIconOpen = document.getElementById('menu-icon-open');
+    const menuIconClose = document.getElementById('menu-icon-close');
+    if (mobileNavMenu && !mobileNavMenu.classList.contains('hidden')) {
+        mobileNavMenu.classList.add('hidden');
+        menuIconOpen.classList.remove('hidden');
+        menuIconClose.classList.add('hidden');
+    }
+
+    // Show the correct tab, passing the specific project hash
+    showTab(tabId, false, projectHash); 
+}
 
         // Modified showTab function
         function showTab(tabId, isInitialLoad = false, projectHash = null) {
